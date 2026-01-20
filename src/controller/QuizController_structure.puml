@@ -1,0 +1,384 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": true,
+    "cutInterfaceStructures": true,
+    "cutDataStructures": true,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "controller.QuizController",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_104069929 { 
+   	label=model
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   CsvHandler104069929[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CsvHandler</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- createDummyQuestions()</TD></TR>
+<TR><TD ALIGN="LEFT" >- createDummyUsers()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ loadQuestions(): List&lt;Question&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ loadUsers(): List&lt;User&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ rewriteQuestions(questions: List&lt;Question&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ rewriteUsers(users: List&lt;User&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ saveQuestion(q: Question)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ saveUsers(users: List&lt;User&gt;)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+GameModel104069929[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)GameModel</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   allQuestions: List&lt;Question&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   allUsers: List&lt;User&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   csvHandler: CsvHandler [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   currentPlayerIndex: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   currentQuestionIndex: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   currentScores: int[] [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   currentUser: User [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   gameQuestions: List&lt;Question&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   isMultiplayer: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   player2: User [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addQuestion(text: String, answers: String[], correctIdx: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addUser(name: String, score: int, isEditor: boolean)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ answerQuestion(answerIndex: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ deleteQuestion(q: Question)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ deleteUser(u: User)</TD></TR>
+<TR><TD ALIGN="LEFT" >- finishGame()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ login(username: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >- prepareGame()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ startMultiplayer(player2Name: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ startSinglePlayer()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ updateQuestion(indexInList: int, txt: String, ans: String[], corrIdx: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ updateUser(indexInList: int, name: String, score: int, isEditor: boolean)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Question104069929[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Question</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   answers: String[] [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   correctIndex: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   id: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   text: String [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+User104069929[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)User</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   highscore: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isEditor: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   username: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ compareTo(o: User): int</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_3619493 { 
+   	label=view
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   CreditsView3619493[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CreditsView</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   backButton: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   textArea: JTextArea [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+EditorView3619493[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)EditorView</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   btnAddQ: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   btnAddU: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   btnBack: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   btnClearQ: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   btnClearU: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   btnDeleteQ: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   btnDeleteU: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   btnUpdateQ: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   btnUpdateU: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   qAnswers: JTextField[] [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   qCorrectBox: JComboBox&lt;Integer&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   qText: JTextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   questionList: JList&lt;Question&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   questionListModel: DefaultListModel&lt;Question&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   tabbedPane: JTabbedPane [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   uIsEditor: JCheckBox [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   uName: JTextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   uScore: JSpinner [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   userList: JList&lt;User&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   userListModel: DefaultListModel&lt;User&gt; [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ clearQuestionForm()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ clearUserForm()</TD></TR>
+<TR><TD ALIGN="LEFT" >- createQuestionsPanel(): JPanel</TD></TR>
+<TR><TD ALIGN="LEFT" >- createUsersPanel(): JPanel</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getQAnswer(i: int): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+GameView3619493[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)GameView</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   answerButtons: JButton[] [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   progressLabel: JLabel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   questionLabel: JLabel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   scoreLabel: JLabel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   turnLabel: JLabel [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ showQuestion(q: Question)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+HighscoreView3619493[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)HighscoreView</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   backButton: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   textArea: JTextArea [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+LoginView3619493[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)LoginView</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   loginButton: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   nameField: JTextField [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+MainFrame3619493[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)MainFrame</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   cardLayout: CardLayout [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   creditsView: CreditsView [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   editorView: EditorView [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   gameView: GameView [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   highscoreView: HighscoreView [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   loginView: LoginView [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   mainPanel: JPanel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   menuView: MenuView [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ showCard(name: String)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+MenuView3619493[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)MenuView</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   btnCredits: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   btnEditor: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   btnExit: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   btnHighscore: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   btnMulti: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   btnSingle: JButton [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   userLabel: JLabel [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- createButton(text: String): JButton</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_637428636 { 
+   	label=controller
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   QuizController637428636[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)QuizController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   model: GameModel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   view: MainFrame [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- initController()</TD></TR>
+<TR><TD ALIGN="LEFT" >- initEditorLogic()</TD></TR>
+<TR><TD ALIGN="LEFT" >- refreshEditorLists()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(o: Observable, arg: Object)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+'edges    
+EditorView3619493 -> Question104069929[label="questionList
+[0..1]"];
+EditorView3619493 -> Question104069929[label="questionListModel
+[0..1]"];
+EditorView3619493 -> User104069929[label="userList
+[0..1]"];
+EditorView3619493 -> User104069929[label="userListModel
+[0..1]"];
+GameModel104069929 -> CsvHandler104069929[label="csvHandler
+[0..1]"];
+GameModel104069929 -> Question104069929[label="allQuestions
+[0..*]"];
+GameModel104069929 -> Question104069929[label="gameQuestions
+[0..*]"];
+GameModel104069929 -> User104069929[label="allUsers
+[0..*]"];
+GameModel104069929 -> User104069929[label="currentUser
+[0..1]"];
+GameModel104069929 -> User104069929[label="player2
+[0..1]"];
+MainFrame3619493 -> CreditsView3619493[label="creditsView
+[0..1]"];
+MainFrame3619493 -> EditorView3619493[label="editorView
+[0..1]"];
+MainFrame3619493 -> GameView3619493[label="gameView
+[0..1]"];
+MainFrame3619493 -> HighscoreView3619493[label="highscoreView
+[0..1]"];
+MainFrame3619493 -> LoginView3619493[label="loginView
+[0..1]"];
+MainFrame3619493 -> MenuView3619493[label="menuView
+[0..1]"];
+QuizController637428636 -> GameModel104069929[label="model
+[0..1]"];
+QuizController637428636 -> GameView3619493[label="update() -> showQuestion()"];
+QuizController637428636 -> MainFrame3619493[label="view
+[0..1]"];
+    
+}
+@enduml
